@@ -4,7 +4,7 @@
     example loads a pretrained model and uses it to find dog faces in images.
     We also use the dlib::shape_predictor to find the location of the eyes and
     nose and then draw glasses and a mustache onto each dog found :)
-    
+
 
     Users who are just learning about dlib's deep learning API should read the
     dnn_introduction_ex.cpp and dnn_introduction2_ex.cpp examples to learn how
@@ -12,7 +12,7 @@
     should read dnn_mmod_ex.cpp
 
 
-    
+
     TRAINING THE MODEL
         Finally, users interested in how the dog face detector was trained should
         read the dnn_mmod_ex.cpp example program.  It should be noted that the
@@ -35,7 +35,7 @@
             cropper.set_chip_dims(200, 200);
             cropper.set_min_object_size(40,40);
 
-        The training data used to create the model is also available at 
+        The training data used to create the model is also available at
         http://dlib.net/files/data/CU_dogs_fully_labeled.tar.gz
 
         Lastly, the shape_predictor was trained with default settings except we
@@ -82,7 +82,7 @@ int main(int argc, char** argv) try
     net_type net;
     shape_predictor sp;
     matrix<rgb_alpha_pixel> glasses, mustache;
-    deserialize(argv[1]) >> net >> sp >> glasses >> mustache;  
+    deserialize(argv[1]) >> net >> sp >> glasses >> mustache;
     pyramid_up(glasses);
     pyramid_up(mustache);
 
@@ -99,7 +99,7 @@ int main(int argc, char** argv) try
 
         // Upsampling the image will allow us to find smaller dog faces but will use more
         // computational resources.
-        //pyramid_up(img); 
+        //pyramid_up(img);
 
         auto dets = net(img);
         win_wireframe.clear_overlay();
@@ -166,6 +166,8 @@ int main(int argc, char** argv) try
         win_wireframe.add_overlay(lines);
         win_hipster.set_image(img);
 
+        save_png(img, std::string(argv[i]) + "_hipster.png");
+        
         cout << "Hit enter to process the next image." << endl;
         cin.get();
     }
@@ -174,7 +176,3 @@ catch(std::exception& e)
 {
     cout << e.what() << endl;
 }
-
-
-
-
